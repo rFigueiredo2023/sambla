@@ -202,6 +202,10 @@ tbody tr.hot:hover{background:rgba(143,208,255,.08)}
 .sheet rect.p{fill:#C49B6C;fill-opacity:.32;stroke:var(--ice);stroke-width:3}
 .sheet rect.p.thin{fill:#8FD0FF;fill-opacity:.12}
 .sheet rect.p:hover{fill:var(--ice);fill-opacity:.7}
+.sheet polygon.p{fill:#C49B6C;fill-opacity:.32;stroke:var(--ice);stroke-width:3}
+.sheet polygon.p.thin{fill:#8FD0FF;fill-opacity:.12}
+.sheet polygon.p:hover{fill:var(--ice);fill-opacity:.7}
+.sheet rect.off{fill:none;stroke:rgba(143,208,255,.32);stroke-width:2;stroke-dasharray:18 14}
 .sheet text{font:400 40px var(--mono);fill:var(--text);pointer-events:none}
 .sheet-h{display:flex;justify-content:space-between;gap:10px;font-size:.9rem;margin-bottom:6px;flex-wrap:wrap}
 ol.steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:11px}
@@ -243,11 +247,12 @@ ol.steps li::before{content:counter(s,decimal-leading-zero);font:500 .8rem/1.9 v
 .plan{flex:1;display:flex;align-items:center;min-height:0;margin-bottom:14px}
 .plan svg{width:100%;height:auto;display:block}
 .plan rect.sh{fill:#0C1116;stroke:rgba(143,208,255,.35);stroke-width:7}
-.plan rect.pc{fill:rgba(196,155,108,.3);stroke:var(--ice);stroke-width:7;stroke-dasharray:14000;stroke-dashoffset:14000;fill-opacity:0}
-.plan.go rect.pc{animation:drawp 2.4s cubic-bezier(.3,.6,.2,1) forwards,fillp .8s ease forwards;animation-delay:var(--d),calc(var(--d) + 1.2s)}
+.plan .off{fill:none;stroke:rgba(143,208,255,.25);stroke-width:4;stroke-dasharray:30 24}
+.plan rect.pc,.plan polygon.pc{fill:rgba(196,155,108,.3);stroke:var(--ice);stroke-width:7;stroke-dasharray:14000;stroke-dashoffset:14000;fill-opacity:0}
+.plan.go rect.pc,.plan.go polygon.pc{animation:drawp 2.4s cubic-bezier(.3,.6,.2,1) forwards,fillp .8s ease forwards;animation-delay:var(--d),calc(var(--d) + 1.2s)}
 @keyframes drawp{to{stroke-dashoffset:0}}
 @keyframes fillp{to{fill-opacity:1}}
-@media (prefers-reduced-motion:reduce){.plan rect.pc{stroke-dashoffset:0;fill-opacity:1;animation:none!important}}
+@media (prefers-reduced-motion:reduce){.scan .sweep{animation:none!important}.plan rect.pc,.plan polygon.pc{stroke-dashoffset:0;fill-opacity:1;animation:none!important}}
 .bignum{font:600 clamp(4.2rem,8vw,7.4rem)/.95 var(--sans);letter-spacing:-.06em;background:linear-gradient(180deg,#fff,#7D8894);-webkit-background-clip:text;background-clip:text;color:transparent}
 .qrt{display:flex;gap:14px;align-items:center;background:#F4F6F8;color:#07090B;padding:12px;border-radius:12px;width:max-content;max-width:100%;margin-bottom:auto;font:400 .74rem/1.4 var(--mono)}
 .qrt b{font:600 1rem var(--sans);display:block}
@@ -267,6 +272,8 @@ ol.steps li::before{content:counter(s,decimal-leading-zero);font:500 .8rem/1.9 v
 .asm-t.big .asm-c h3{font-size:1.3rem}
 .asm-c p{font:400 .72rem/1.4 var(--mono);color:#AEB7BF;margin:2px 0 0}
 .asm-c .btn{flex:none}
+.asm-vid{width:100%;aspect-ratio:4/3;object-fit:contain;background:#04050A;border-radius:14px;border:1px solid var(--line);display:block}
+.asm-now{font-size:.86rem;line-height:1.35;color:#E3E8EC;margin:5px 0 0;min-height:2.7em}
 .asm-note{font:400 .74rem/1.5 var(--mono);color:#7F8993;margin:14px 0 0}
 .pic-v{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#07090B;z-index:1;max-width:none}
 .card .pic{position:relative;cursor:pointer}
@@ -365,6 +372,8 @@ footer{border-top:1px solid var(--line);padding-block:54px 24px;overflow:hidden}
   .nav a.opt{display:none}
 }
 @media (max-width:640px){
+  .sheet{overflow-x:auto}
+  .sheet svg{width:760px;max-width:none}
   .dets{grid-template-columns:minmax(0,1fr)}
   .amb-st li{padding:5px 8px;font-size:.68rem}
   .amb{aspect-ratio:auto}
@@ -451,7 +460,7 @@ footer{border-top:1px solid var(--line);padding-block:54px 24px;overflow:hidden}
     <div class="ch mid" id="ch3" hidden><div class="glass" style="padding:26px;border-radius:22px;max-width:480px">
       <p class="kick">03 · Corte</p>
       <h2 style="margin-top:10px;font-size:clamp(2rem,3.6vw,3.2rem)">O plano de corte sai pronto para a CNC.</h2>
-      <div class="tele"><div><b id="tPieces">31</b><span>peças</span></div><div><b id="tSheets">6</b><span>chapas</span></div><div><b id="tKg">182</b><span>kg no kit</span></div></div>
+      <div class="tele"><div><b id="tPieces">31</b><span>peças</span></div><div><b id="tSheets">5</b><span>chapas</span></div><div><b id="tKg">172</b><span>kg no kit</span></div></div>
       <div class="bars" id="tBars"></div>
     </div></div>
 
@@ -474,7 +483,7 @@ footer{border-top:1px solid var(--line);padding-block:54px 24px;overflow:hidden}
 </section>
 
 <section class="sec" id="foto"><div class="wrap">
-  <div class="head rv"><p class="kick">Da foto ao móvel</p><h2>Fotografe o espaço. Veja o móvel nele.</h2><p>A IA identifica o espaço na sua foto e propõe o móvel naquela imagem. Depois é só ajustar medidas, cores, portas e gavetas. Arraste para comparar.</p></div>
+  <div class="head rv"><p class="kick">Da foto ao móvel</p><h2>Fotografe o espaço. Veja o móvel nele.</h2><p>Hoje sua foto vira o fundo do estúdio e você posiciona o móvel. Na versão final, a IA identifica o espaço e propõe o móvel naquela imagem. Arraste para comparar.</p></div>
   <div class="cmp rv" id="cmp">
     <img src="assets/escada.jpg" alt="Depois: armário de carvalho embaixo da escada" loading="lazy" draggable="false">
     <img class="before" src="assets/antes.jpg" alt="Antes: espaço vazio embaixo da escada" loading="lazy" draggable="false">
@@ -563,15 +572,17 @@ footer{border-top:1px solid var(--line);padding-block:54px 24px;overflow:hidden}
     </div>
   </div>
   <div class="tabpane" role="tabpanel" id="p-plano" aria-labelledby="tab-plano" hidden>
-    <p class="note" style="margin-bottom:13px">Chapa de 2750 × 1850 mm, desenhada em escala. É este plano que vai para a máquina de corte.</p>
+    <p class="note" style="margin-bottom:13px">Chapa de 2750 × 1850 mm, desenhada em escala, com etiqueta em cada peça e 4 mm de folga de corte. A linha tracejada marca a sobra das peças inclinadas.</p>
     <div id="sheets"></div>
   </div>
   <div class="tabpane" role="tabpanel" id="p-montar" aria-labelledby="tab-montar" hidden>
     <div class="two">
       <div><h3 style="margin-bottom:13px">Passo a passo deste móvel</h3><ol class="steps" id="asmSteps"></ol></div>
       <div>
-        <h3 style="margin-bottom:6px">Cada módulo chega com etiqueta</h3>
-        <p class="note" style="margin-bottom:13px">Aponte a câmera para o QR code e veja o vídeo deste módulo, peça por peça.</p>
+        <video id="asmVid" class="asm-vid" muted loop playsinline controls preload="none" aria-label="Vídeo de montagem do móvel"></video>
+        <p class="note" id="asmVidNote" style="margin-top:8px"></p>
+        <h3 style="margin:16px 0 6px">Cada módulo chega com etiqueta</h3>
+        <p class="note" style="margin-bottom:13px">Aponte a câmera para o QR code e abra o mesmo vídeo no celular.</p>
         <div class="label-card">
           <div><b id="lblName"></b><span id="lblCode"></span><br><span id="lblPieces"></span><br>Furação pronta</div>
           <div id="qr" aria-label="QR code do vídeo de montagem"></div>
@@ -662,16 +673,16 @@ footer{border-top:1px solid var(--line);padding-block:54px 24px;overflow:hidden}
 </div></section>
 
 <section class="sec" id="encaixe" style="padding-top:0"><div class="wrap">
-  <div class="head rv"><p class="kick">Encaixe</p><h2>Da pilha de peças ao móvel pronto.</h2><p>Cada animação usa as peças calculadas para aquele móvel. Veja as laterais, prateleiras e gavetas entrando no lugar, até as portas fecharem.</p></div>
+  <div class="head rv"><p class="kick">Encaixe</p><h2>Da pilha de peças ao móvel pronto.</h2><p>Cada animação usa as peças calculadas para aquele móvel, na ordem do manual: laterais e base, divisórias, tampo, fundo, prateleiras, gavetas e portas, até encostar na parede.</p></div>
   <div class="asm rv" id="asm">
-    <article class="asm-t big" data-code="sb-gr-180"><video muted loop playsinline preload="none" poster="assets/vid/sb-gr-180.jpg"></video><i class="asm-bar"></i><div class="asm-c glass"><div><h3></h3><p></p></div><button class="btn small" type="button">Abrir no estúdio</button></div></article>
-    <article class="asm-t" data-code="sb-ee-240"><video muted loop playsinline preload="none" poster="assets/vid/sb-ee-240.jpg"></video><i class="asm-bar"></i><div class="asm-c glass"><div><h3></h3><p></p></div><button class="btn small" type="button">Abrir no estúdio</button></div></article>
-    <article class="asm-t" data-code="sb-es-180"><video muted loop playsinline preload="none" poster="assets/vid/sb-es-180.jpg"></video><i class="asm-bar"></i><div class="asm-c glass"><div><h3></h3><p></p></div><button class="btn small" type="button">Abrir no estúdio</button></div></article>
-    <article class="asm-t" data-code="sb-rk-180"><video muted loop playsinline preload="none" poster="assets/vid/sb-rk-180.jpg"></video><i class="asm-bar"></i><div class="asm-c glass"><div><h3></h3><p></p></div><button class="btn small" type="button">Abrir no estúdio</button></div></article>
-    <article class="asm-t" data-code="sb-ac-120"><video muted loop playsinline preload="none" poster="assets/vid/sb-ac-120.jpg"></video><i class="asm-bar"></i><div class="asm-c glass"><div><h3></h3><p></p></div><button class="btn small" type="button">Abrir no estúdio</button></div></article>
-    <article class="asm-t" data-code="sb-ho-160"><video muted loop playsinline preload="none" poster="assets/vid/sb-ho-160.jpg"></video><i class="asm-bar"></i><div class="asm-c glass"><div><h3></h3><p></p></div><button class="btn small" type="button">Abrir no estúdio</button></div></article>
+    <article class="asm-t big" data-code="sb-gr-180"><video muted loop playsinline preload="none" poster="assets/vid/sb-gr-180.jpg"></video><i class="asm-bar"></i><div class="asm-c glass"><div><h3></h3><p class="asm-count"></p><div class="asm-now" aria-live="off"></div></div><button class="btn small" type="button">Abrir no estúdio</button></div></article>
+    <article class="asm-t" data-code="sb-ee-240"><video muted loop playsinline preload="none" poster="assets/vid/sb-ee-240.jpg"></video><i class="asm-bar"></i><div class="asm-c glass"><div><h3></h3><p class="asm-count"></p><div class="asm-now" aria-live="off"></div></div><button class="btn small" type="button">Abrir no estúdio</button></div></article>
+    <article class="asm-t" data-code="sb-es-180"><video muted loop playsinline preload="none" poster="assets/vid/sb-es-180.jpg"></video><i class="asm-bar"></i><div class="asm-c glass"><div><h3></h3><p class="asm-count"></p><div class="asm-now" aria-live="off"></div></div><button class="btn small" type="button">Abrir no estúdio</button></div></article>
+    <article class="asm-t" data-code="sb-rk-180"><video muted loop playsinline preload="none" poster="assets/vid/sb-rk-180.jpg"></video><i class="asm-bar"></i><div class="asm-c glass"><div><h3></h3><p class="asm-count"></p><div class="asm-now" aria-live="off"></div></div><button class="btn small" type="button">Abrir no estúdio</button></div></article>
+    <article class="asm-t" data-code="sb-ac-120"><video muted loop playsinline preload="none" poster="assets/vid/sb-ac-120.jpg"></video><i class="asm-bar"></i><div class="asm-c glass"><div><h3></h3><p class="asm-count"></p><div class="asm-now" aria-live="off"></div></div><button class="btn small" type="button">Abrir no estúdio</button></div></article>
+    <article class="asm-t" data-code="sb-ho-160"><video muted loop playsinline preload="none" poster="assets/vid/sb-ho-160.jpg"></video><i class="asm-bar"></i><div class="asm-c glass"><div><h3></h3><p class="asm-count"></p><div class="asm-now" aria-live="off"></div></div><button class="btn small" type="button">Abrir no estúdio</button></div></article>
   </div>
-  <p class="asm-note">Animações geradas a partir do projeto 3D. A ordem das peças é ilustrativa; o manual de cada kit traz a montagem real.</p>
+  <p class="asm-note">A sequência segue o passo a passo calculado para cada móvel, com as mesmas peças da lista de corte. Animações geradas a partir do projeto 3D.</p>
 </div></section>
 
 <section class="sec" id="no-ambiente" style="padding-top:0"><div class="wrap">
@@ -702,7 +713,7 @@ footer{border-top:1px solid var(--line);padding-block:54px 24px;overflow:hidden}
     <p class="kick">Como funciona</p>
     <h2 style="margin-top:10px;max-width:14ch">Da sua ideia ao móvel no lugar.</h2>
     <ol class="flow">
-      <li class="glass"><h3>Descreva ou fotografe</h3><p>Escreva o que precisa ou envie a foto. A IA monta uma primeira sugestão.</p></li>
+      <li class="glass"><h3>Descreva ou fotografe</h3><p>Escreva o que precisa e o sistema monta uma primeira sugestão. A leitura automática da foto fica para a versão final.</p></li>
       <li class="glass"><h3>Personalize em 3D</h3><p>Medidas, cor, divisões, portas, gavetas e acessórios, com o preço na hora.</p></li>
       <li class="glass"><h3>Confira as medidas</h3><p>Com as medidas validadas, o orçamento vira ordem de produção.</p></li>
       <li class="glass"><h3>Receba e monte</h3><p>Peças prontas, ferragens e QR code. Monte você ou chame um profissional.</p></li>
@@ -727,7 +738,7 @@ footer{border-top:1px solid var(--line);padding-block:54px 24px;overflow:hidden}
     </ul>
   </div>
   <form id="visitForm" class="glass card-f rv">
-    <h3 style="margin-bottom:13px">Pedir visita técnica</h3>
+    <h3 style="margin-bottom:6px">Pedir visita técnica</h3><p class="note" style="margin-bottom:13px">Simulação do protótipo: os dados não são enviados.</p>
     <div class="formgrid">
       <label class="field">Nome<input id="vName" type="text" required autocomplete="name"></label>
       <label class="field">WhatsApp<input id="vPhone" type="tel" required autocomplete="tel"></label>
@@ -735,13 +746,13 @@ footer{border-top:1px solid var(--line);padding-block:54px 24px;overflow:hidden}
       <label class="field">Ambiente<select id="vRoom"><option>Quarto</option><option>Cozinha</option><option>Sala</option><option>Escritório</option><option>Área de serviço</option><option>Casa inteira</option></select></label>
       <label class="field full">O que você imagina<textarea id="vMsg" rows="3"></textarea></label>
     </div>
-    <button class="btn primary" style="margin-top:14px" type="submit">Pedir visita</button>
+    <button class="btn primary" style="margin-top:14px" type="submit">Simular pedido de visita</button>
     <p class="ok-msg" id="visitOk" hidden>Neste protótipo a solicitação não é enviada.</p>
   </form>
 </div></section>
 
 <section class="sec" id="marceneiros" style="padding-top:0"><div class="wrap">
-  <div class="head rv"><p class="kick">Para marceneiros</p><h2>Ferragens e chapas perto de você.</h2><p>Distribuição no Vale do Araguaia, sem precisar buscar em Primavera do Leste. Preços liberados depois do cadastro com CNPJ.</p></div>
+  <div class="head rv"><p class="kick">Para marceneiros</p><h2>Ferragens e chapas perto de você.</h2><p>Distribuição no Vale do Araguaia, sem precisar buscar em Primavera do Leste. Na versão final, os preços ficam disponíveis depois do cadastro com CNPJ.</p></div>
   <div class="split">
     <div class="scroll"><table>
       <thead><tr><th>Linha</th><th>O que oferecemos</th></tr></thead>
@@ -756,14 +767,14 @@ footer{border-top:1px solid var(--line);padding-block:54px 24px;overflow:hidden}
       </tbody>
     </table></div>
     <form id="b2bForm" class="glass card-f">
-      <h3 style="margin-bottom:13px">Cadastro de marceneiro</h3>
+      <h3 style="margin-bottom:6px">Cadastro de marceneiro</h3><p class="note" style="margin-bottom:13px">Simulação do protótipo: os dados não são enviados.</p>
       <div class="formgrid">
         <label class="field full">CNPJ<input id="bCnpj" type="text" inputmode="numeric" required></label>
         <label class="field">Empresa<input id="bName" type="text" required></label>
         <label class="field">Cidade<input id="bCity" type="text" required></label>
         <label class="field full">Chapas por mês<input id="bQty" type="number" min="0" inputmode="numeric"></label>
       </div>
-      <button class="btn primary" style="margin-top:14px" type="submit">Enviar cadastro</button>
+      <button class="btn primary" style="margin-top:14px" type="submit">Simular cadastro</button>
       <p class="ok-msg" id="b2bOk" hidden>Neste protótipo o cadastro não é enviado.</p>
     </form>
   </div>
@@ -791,6 +802,7 @@ footer{border-top:1px solid var(--line);padding-block:54px 24px;overflow:hidden}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
+window.__asmSteps={"sb-gr-180":[{"t":0,"text":"Separe as peças pelas etiquetas e confira com a lista do kit.","k":"sep"},{"t":1.1,"text":"Monte a base nas laterais e instale os pés reguláveis e o rodapé.","k":"base"},{"t":3.35,"text":"Encaixe 2 divisórias na base.","k":"div"},{"t":4.15,"text":"Fixe o tampo e confira o esquadro.","k":"top"},{"t":4.8,"text":"Pregue o fundo de 6 mm na parte de trás.","k":"back"},{"t":5.45,"text":"Coloque 6 prateleiras nos furos prontos.","k":"shelf"},{"t":6.83,"text":"Instale o cabideiro.","k":"rail"},{"t":7.62,"text":"Instale as corrediças e monte 3 gavetas.","k":"drawer"},{"t":13.97,"text":"Coloque as portas e ajuste as dobradiças até alinhar.","k":"door"},{"t":17.74,"text":"Encoste o móvel na parede e fixe.","k":"wall"}],"sb-gr-120":[{"t":0,"text":"Separe as peças pelas etiquetas e confira com a lista do kit.","k":"sep"},{"t":1.1,"text":"Monte a base nas laterais e instale os pés reguláveis e o rodapé.","k":"base"},{"t":3.55,"text":"Encaixe 1 divisória na base.","k":"div"},{"t":4.2,"text":"Fixe o tampo e confira o esquadro.","k":"top"},{"t":4.85,"text":"Pregue o fundo de 6 mm na parte de trás.","k":"back"},{"t":5.5,"text":"Coloque 5 prateleiras nos furos prontos.","k":"shelf"},{"t":6.95,"text":"Instale o cabideiro.","k":"rail"},{"t":7.6,"text":"Instale as corrediças e monte 2 gavetas.","k":"drawer"},{"t":12.48,"text":"Coloque as portas e ajuste as dobradiças até alinhar.","k":"door"},{"t":15.1,"text":"Encoste o móvel na parede e fixe.","k":"wall"}],"sb-gv-060":[{"t":0,"text":"Separe as peças pelas etiquetas e confira com a lista do kit.","k":"sep"},{"t":1.1,"text":"Monte a base nas laterais e instale os pés reguláveis e o rodapé.","k":"base"},{"t":3.19,"text":"Fixe o tampo e confira o esquadro.","k":"top"},{"t":3.84,"text":"Pregue o fundo de 6 mm na parte de trás.","k":"back"},{"t":4.49,"text":"Instale as corrediças e monte 3 gavetas.","k":"drawer"},{"t":12.74,"text":"Encoste o móvel na parede e fixe.","k":"wall"}],"sb-es-180":[{"t":0,"text":"Separe as peças pelas etiquetas e confira com a lista do kit.","k":"sep"},{"t":1.1,"text":"Monte a base nas duas laterais.","k":"base"},{"t":2.16,"text":"Encaixe 2 divisórias na base.","k":"div"},{"t":3.02,"text":"Fixe o tampo e confira o esquadro.","k":"top"},{"t":3.67,"text":"Pregue o fundo de 6 mm na parte de trás.","k":"back"},{"t":4.32,"text":"Coloque 11 prateleiras nos furos prontos.","k":"shelf"},{"t":7.03,"text":"Instale as corrediças e monte 2 gavetas.","k":"drawer"},{"t":12.6,"text":"Encoste o móvel na parede e fixe.","k":"wall"}],"sb-rk-180":[{"t":0,"text":"Separe as peças pelas etiquetas e confira com a lista do kit.","k":"sep"},{"t":1.1,"text":"Monte a base nas laterais e instale os pés reguláveis e o rodapé.","k":"base"},{"t":4.71,"text":"Encaixe 2 divisórias na base.","k":"div"},{"t":5.63,"text":"Fixe o tampo e confira o esquadro.","k":"top"},{"t":6.28,"text":"Pregue o fundo de 6 mm na parte de trás.","k":"back"},{"t":6.93,"text":"Instale as corrediças e monte 1 gaveta.","k":"drawer"},{"t":10.06,"text":"Coloque as portas e ajuste as dobradiças até alinhar.","k":"door"},{"t":12.68,"text":"Encoste o móvel na parede e fixe.","k":"wall"}],"sb-ee-240":[{"t":0,"text":"Separe as peças pelas etiquetas e confira com a lista do kit.","k":"sep"},{"t":1.1,"text":"Monte a base nas duas laterais.","k":"base"},{"t":2.15,"text":"Encaixe 3 divisórias na base.","k":"div"},{"t":3.2,"text":"Fixe o tampo inclinado, começando pelo lado mais alto.","k":"top"},{"t":4.05,"text":"Pregue o fundo de 6 mm na parte de trás.","k":"back"},{"t":4.9,"text":"Coloque 7 prateleiras nos furos prontos.","k":"shelf"},{"t":6.75,"text":"Instale as corrediças e monte 2 gavetas.","k":"drawer"},{"t":12.03,"text":"Coloque as portas e ajuste as dobradiças até alinhar.","k":"door"},{"t":14.65,"text":"Empurre o móvel até o vão e fixe na parede.","k":"wall"}],"sb-ac-120":[{"t":0,"text":"Separe as peças pelas etiquetas e confira com a lista do kit.","k":"sep"},{"t":1.1,"text":"Monte a base nas duas laterais.","k":"base"},{"t":2.55,"text":"Encaixe 1 divisória na base.","k":"div"},{"t":3.2,"text":"Fixe o tampo e confira o esquadro.","k":"top"},{"t":3.85,"text":"Pregue o fundo de 6 mm na parte de trás.","k":"back"},{"t":4.5,"text":"Coloque 2 prateleiras nos furos prontos.","k":"shelf"},{"t":5.55,"text":"Coloque as portas e ajuste as dobradiças até alinhar.","k":"door"},{"t":8.17,"text":"Encoste o móvel na parede e fixe.","k":"wall"}],"sb-pn-060":[{"t":0,"text":"Separe as peças pelas etiquetas e confira com a lista do kit.","k":"sep"},{"t":1.1,"text":"Monte a base nas laterais e instale os pés reguláveis e o rodapé.","k":"base"},{"t":3.44,"text":"Fixe o tampo e confira o esquadro.","k":"top"},{"t":4.09,"text":"Pregue o fundo de 6 mm na parte de trás.","k":"back"},{"t":4.74,"text":"Coloque 4 prateleiras nos furos prontos.","k":"shelf"},{"t":6.11,"text":"Instale as corrediças e monte 2 gavetas.","k":"drawer"},{"t":11.49,"text":"Coloque as portas e ajuste as dobradiças até alinhar.","k":"door"},{"t":12.96,"text":"Encoste o móvel na parede e fixe.","k":"wall"}],"sb-lv-090":[{"t":0,"text":"Separe as peças pelas etiquetas e confira com a lista do kit.","k":"sep"},{"t":1.1,"text":"Monte a base nas laterais e instale os pés reguláveis e o rodapé.","k":"base"},{"t":4.75,"text":"Encaixe 1 divisória na base.","k":"div"},{"t":5.4,"text":"Fixe o tampo e confira o esquadro.","k":"top"},{"t":6.05,"text":"Pregue o fundo de 6 mm na parte de trás.","k":"back"},{"t":6.7,"text":"Coloque 6 prateleiras nos furos prontos.","k":"shelf"},{"t":9.02,"text":"Coloque as portas e ajuste as dobradiças até alinhar.","k":"door"},{"t":11.64,"text":"Encoste o móvel na parede e fixe.","k":"wall"}],"sb-ho-160":[{"t":0,"text":"Separe as peças pelas etiquetas e confira com a lista do kit.","k":"sep"},{"t":1.1,"text":"Monte a base nas duas laterais.","k":"base"},{"t":2.27,"text":"Encaixe 1 divisória na base.","k":"div"},{"t":2.92,"text":"Fixe o tampo e confira o esquadro.","k":"top"},{"t":3.57,"text":"Pregue o fundo de 6 mm na parte de trás.","k":"back"},{"t":4.22,"text":"Coloque 5 prateleiras nos furos prontos.","k":"shelf"},{"t":5.91,"text":"Instale as corrediças e monte 2 gavetas.","k":"drawer"},{"t":12.23,"text":"Encoste o móvel na parede e fixe.","k":"wall"}],"sb-ni-080":[{"t":0,"text":"Separe as peças pelas etiquetas e confira com a lista do kit.","k":"sep"},{"t":1.1,"text":"Monte a base nas duas laterais.","k":"base"},{"t":2.55,"text":"Encaixe 1 divisória na base.","k":"div"},{"t":3.2,"text":"Fixe o tampo e confira o esquadro.","k":"top"},{"t":3.85,"text":"Pregue o fundo de 6 mm na parte de trás.","k":"back"},{"t":4.5,"text":"Coloque 1 prateleira nos furos prontos.","k":"shelf"},{"t":5.15,"text":"Coloque as portas e ajuste as dobradiças até alinhar.","k":"door"},{"t":6.62,"text":"Encoste o móvel na parede e fixe.","k":"wall"}],"sb-ae-090":[{"t":0,"text":"Separe as peças pelas etiquetas e confira com a lista do kit.","k":"sep"},{"t":1.1,"text":"Monte a base nas laterais e instale os pés reguláveis e o rodapé.","k":"base"},{"t":3.66,"text":"Encaixe 1 divisória na base.","k":"div"},{"t":4.31,"text":"Fixe o tampo e confira o esquadro.","k":"top"},{"t":4.96,"text":"Pregue o fundo de 6 mm na parte de trás.","k":"back"},{"t":5.61,"text":"Coloque 4 prateleiras nos furos prontos.","k":"shelf"},{"t":6.9,"text":"Instale as corrediças e monte 2 gavetas.","k":"drawer"},{"t":11.92,"text":"Coloque as portas e ajuste as dobradiças até alinhar.","k":"door"},{"t":14.54,"text":"Encoste o móvel na parede e fixe.","k":"wall"}]};
 (function(){
 'use strict';
 var $=function(id){return document.getElementById(id)};
@@ -838,38 +850,39 @@ function solve(c){
   var parts=[];
   var add=function(o){o.id=parts.length;if(o.bay===undefined)o.bay=-1;parts.push(o);return o};
   var bx=function(a,b,c1,d,e,f){return {x0:a,x1:b,y0:c1,y1:d,z0:e,z1:f}};
-  add({name:'Lateral esquerda',cat:'lat',g:18,box:bx(0,t,0,hAt(0),0,D),L:hAt(0),W:D,ex:[-.55,0,0],tape:hAt(0)+D});
-  add({name:'Lateral direita',cat:'lat',g:18,box:bx(W-t,W,0,hAt(W),0,D),L:hAt(W),W:D,ex:[.55,0,0],tape:hAt(W)+D});
-  add({name:'Base',cat:'base',g:18,box:bx(t,W-t,base,base+t,0,D),L:W-2*t,W:D,ex:[0,0,.15],tape:W-2*t});
+  add({name:'Lateral esquerda',cat:'lat',g:18,box:bx(0,t,0,hAt(0),bk,D),L:hAt(0),W:D-bk,ex:[-.55,0,0],tape:hAt(0)+D});
+  var hR=sloped?hAt(W-t):H;add({name:'Lateral direita',cat:'lat',g:18,box:bx(W-t,W,0,hR,bk,D),L:hR,W:D-bk,ex:[.55,0,0],tape:hAt(W)+D});
+  add({name:'Base',cat:'base',g:18,box:bx(t,W-t,base,base+t,bk,D),L:W-2*t,W:D-bk,ex:[0,0,.15],tape:W-2*t});
   if(base>0)add({name:'Rodapé',cat:'rod',g:18,box:bx(t,W-t,0,base,D-50-t,D-50),L:W-2*t,W:base,ex:[0,0,.75],tape:W-2*t});
   if(sloped){
-    var a=Math.atan2(H-hMin,W),len=(W-2*t)/Math.cos(a),nT=Math.ceil(len/2650),segT=len/nT;
-    for(var kT=0;kT<nT;kT++){var cxT=t+(W-2*t)*(kT+.5)/nT;add({name:'Tampo inclinado',cat:'top',g:18,tilt:{cx:cxT,cy:hAt(cxT)-t/Math.cos(a)/2,a:a,len:segT-(nT>1?1:0),d:D},L:segT,W:D,ex:[(kT-(nT-1)/2)*.12,.6,0],tape:segT,note:'inclinado'})}
+    var a=Math.atan2(H-hMin,W),len=(W-2*t)/Math.cos(a)-t*Math.tan(a),nT=Math.ceil(len/2650),segT=len/nT;
+    for(var kT=0;kT<nT;kT++){var cxT=W/2+(kT+.5-nT/2)*segT*Math.cos(a);add({name:'Tampo inclinado',cat:'top',g:18,tilt:{cx:cxT,cy:hAt(cxT)-t/Math.cos(a)/2,a:a,len:segT,d:D-bk,zc:(D+bk)/2},L:segT,W:D-bk,ex:[(kT-(nT-1)/2)*.12,.6,0],tape:segT,note:'inclinado'})}
     if(W>1820&&H-base>1820){var xm=W/2,hm=hAt(xm);
       add({name:'Fundo',cat:'back',g:6,poly:{pts:[[0,base],[xm,base],[xm,hm],[0,hMin]],z0:0,z1:bk},L:hm-base,W:xm,ex:[-.1,0,-.6],tape:0,note:'emendado'});
       add({name:'Fundo',cat:'back',g:6,poly:{pts:[[xm,base],[W,base],[W,H],[xm,hm]],z0:0,z1:bk},L:H-base,W:W-xm,ex:[.1,0,-.6],tape:0,note:'emendado'});
     }else add({name:'Fundo',cat:'back',g:6,poly:{pts:[[0,base],[W,base],[W,H],[0,hMin]],z0:0,z1:bk},L:W,W:H-base,ex:[0,0,-.6],tape:0,note:'inclinado'});
   }else{
-    add({name:'Tampo',cat:'top',g:18,box:bx(t,W-t,H-t,H,0,D),L:W-2*t,W:D,ex:[0,.6,0],tape:W-2*t});
+    add({name:'Tampo',cat:'top',g:18,box:bx(t,W-t,H-t,H,bk,D),L:W-2*t,W:D-bk,ex:[0,.6,0],tape:W-2*t});
     if(W>1820&&H-base>1820){add({name:'Fundo',cat:'back',g:6,box:bx(0,W/2,base,H,0,bk),L:H-base,W:W/2,ex:[-.1,0,-.6],tape:0,note:'emendado'});add({name:'Fundo',cat:'back',g:6,box:bx(W/2,W,base,H,0,bk),L:H-base,W:W/2,ex:[.1,0,-.6],tape:0,note:'emendado'})}else add({name:'Fundo',cat:'back',g:6,box:bx(0,W,base,H,0,bk),L:W,W:H-base,ex:[0,0,-.6],tape:0});
   }
   var info=[];
   c.bays.forEach(function(b,i){
     var x0=t+i*(bw+t),x1=x0+bw;
     if(i<n-1){
-      var dx=x1,top=sloped?hAt(dx+t)-t*1.15:H-t;
-      add({name:'Divisória',cat:'div',g:18,box:bx(dx,dx+t,base+t,top,bk,D),L:top-base-t,W:D-bk,ex:[0,0,.3],tape:top-base-t});
+      var dx=x1,top=sloped?hAt(dx+t)-t/Math.cos(a)-.5:H-t;
+      if(sloped)add({name:'Divisória',cat:'div',g:18,poly:{pts:[[dx,base+t],[dx+t,base+t],[dx+t,top],[dx,hAt(dx)-t/Math.cos(a)-.5]],z0:bk,z1:D,edge:true},L:top-base-t,W:D-bk,ex:[0,0,.3],tape:top-base-t,note:'topo em ângulo'});
+      else add({name:'Divisória',cat:'div',g:18,box:bx(dx,dx+t,base+t,top,bk,D),L:top-base-t,W:D-bk,ex:[0,0,.3],tape:top-base-t});
     }
     var yB=base+t,yT=(sloped?Math.min(hAt(x0),hAt(x1))-t*1.3:H-t);
     var dh=182,maxDr=Math.max(0,Math.floor((yT-yB-20)/dh));
-    var drawers=Math.min(b.drawers,maxDr);
+    var drawers=bw>=200?Math.min(b.drawers,maxDr):0;
     for(var k=0;k<drawers;k++){
-      var y=yB+k*dh;
-      add({name:'Frente de gaveta',cat:'df',g:18,box:bx(x0+1,x1-1,y+1,y+178,D-t,D),L:bw-2,W:177,ex:[0,.02*k,1.05],tape:2*(bw+177),slide:1,bay:i,visible:!b.door});
-      add({name:'Lateral de gaveta',cat:'ds',g:18,box:bx(x0+13,x0+31,y+20,y+160,20,D-t),L:D-t-20,W:140,ex:[-.09,.02*k,.85],tape:D-t-20,slide:1,bay:i});
-      add({name:'Lateral de gaveta',cat:'ds',g:18,box:bx(x1-31,x1-13,y+20,y+160,20,D-t),L:D-t-20,W:140,ex:[.09,.02*k,.85],tape:D-t-20,slide:1,bay:i});
+      var y=yB+k*dh,rec=b.door?24:0;
+      add({name:'Frente de gaveta',cat:'df',g:18,box:bx(x0+1,x1-1,y+1,y+178,D-t-rec,D-rec),L:bw-2,W:177,ex:[0,.02*k,1.05],tape:2*(bw+177),slide:1,bay:i,visible:!b.door});
+      add({name:'Lateral de gaveta',cat:'ds',g:18,box:bx(x0+13,x0+31,y+20,y+160,20,D-t-rec),L:D-t-20-rec,W:140,ex:[-.09,.02*k,.85],tape:D-t-20-rec,slide:1,bay:i});
+      add({name:'Lateral de gaveta',cat:'ds',g:18,box:bx(x1-31,x1-13,y+20,y+160,20,D-t-rec),L:D-t-20-rec,W:140,ex:[.09,.02*k,.85],tape:D-t-20-rec,slide:1,bay:i});
       add({name:'Traseira de gaveta',cat:'db',g:18,box:bx(x0+31,x1-31,y+20,y+150,20,38),L:bw-62,W:130,ex:[0,.02*k,.7],tape:0,slide:1,bay:i});
-      add({name:'Fundo de gaveta',cat:'dz',g:6,box:bx(x0+31,x1-31,y+20,y+26,38,D-t),L:bw-62,W:D-t-38,ex:[0,-.03+.02*k,.8],tape:0,slide:1,bay:i});
+      add({name:'Fundo de gaveta',cat:'dz',g:6,box:bx(x0+31,x1-31,y+20,y+26,38,D-t-rec),L:bw-62,W:D-t-38-rec,ex:[0,-.03+.02*k,.8],tape:0,slide:1,bay:i});
       if(!b.door&&c.handle!=='cava')add({name:'Puxador',cat:'hw',cut:false,box:handleBox(c,(x0+x1)/2,y+120,D,'h'),ex:[0,.02*k,1.1],slide:1,bay:i});
     }
     var y0=yB+drawers*dh, railY=null, clear=null;
@@ -881,6 +894,7 @@ function solve(c){
       for(var q=0;q<s;q++)ys.push(yT-300-q*320);
       railY=(s>0?ys[ys.length-1]:yT)-60;
       clear=railY-y0;
+      if(clear<120){railY=null;clear=null}
     }else{
       var room2=yT-y0,maxS=Math.max(0,Math.floor(room2/110)-1);
       s=Math.min(s,maxS);
@@ -899,7 +913,7 @@ function solve(c){
         add({name:'Porta',cat:'door',g:18,door:{xa:a0,xb:a1,ya:ya,hA:hA,hB:hB,hinge:hinge,handle:c.handle},L:Math.max(hA,hB),W:a1-a0,ex:[0,0,1.35],tape:2*(Math.max(hA,hB)+a1-a0),bay:i,note:sloped?'inclinado':''});
       }
     }
-    info.push({i:i,x0:x0,x1:x1,yB:yB,yT:yT,drawers:drawers,shelves:s,ys:ys,rail:!!b.rail,railY:railY,clear:clear,leaves:leaves,door:!!b.door,reqDrawers:b.drawers,reqShelves:b.shelves});
+    info.push({i:i,x0:x0,x1:x1,yB:yB,yT:yT,drawers:drawers,shelves:s,ys:ys,rail:railY!==null,reqRail:!!b.rail,railY:railY,clear:clear,leaves:leaves,door:!!b.door,reqDrawers:b.drawers,reqShelves:b.shelves});
   });
   return {parts:parts,bw:bw,info:info,hAt:hAt,sloped:sloped,hMin:hMin,t:t};
 }
@@ -937,11 +951,12 @@ function kit(c,sol){
   pushHw('Fita de LED com fonte',Math.ceil(ledM*10)/10,'m',42);
   if(c.base>0)pushHw('Pé regulável',Math.max(4,Math.ceil(c.W/600)*2+2),'un',3.5);
   pushHw('Parafusos e cavilhas',cut.length*6,'un',.32);
-  var nest=nestAll(cut);
+  var nest=nestAll(cut,['carvalho','nogueira'].indexOf(c.finish)<0);
   var f=FINISHES.filter(function(x){return x.id===c.finish})[0];
   var area=function(g){return cut.filter(function(p){return p.g===g}).reduce(function(s,p){return s+p.L*p.W},0)/1e6};
   var a18=area(18),a6=area(6),sheetA=SHEET.L*SHEET.W/1e6;
-  var kg=a18*12.6+a6*4.5;
+  var net=function(g){return cut.filter(function(p){return p.g===g}).reduce(function(s,p){return s+(polyArea(shapeOf(p))||p.L*p.W)},0)/1e6};
+  var kg=net(18)*12.6+net(6)*4.5;
   var costSheets=(a18/sheetA*f.price+a6/sheetA*130)*1.22;
   var cutMeters=cut.reduce(function(s,p){return s+2*(p.L+p.W)},0)/1000;
   var tapeM=cut.reduce(function(s,p){return s+(p.tape||0)},0)/1000;
@@ -952,36 +967,90 @@ function kit(c,sol){
   var cost={sheets:costSheets*m,cut:costCut*m,tape:costTape*m,hw:costHw*m};
   cost.total=cost.sheets+cost.cut+cost.tape+cost.hw;
   hw.forEach(function(h){kg+=h.unit==='un'?h.qty*.05:h.qty*.5});
+  cut.forEach(function(p,ix){p.tag='P'+String(ix+1).padStart(2,'0')});rows.forEach(function(r){r.tags=r.ids.map(function(id){return sol.parts[id].tag})});
   return {rows:rows,hw:hw,nest:nest,cost:cost,kg:kg,pieces:cut.length,tapeM:tapeM};
 }
-function nestAll(cut){
-  var out=[];
-  [18,6].forEach(function(g){
-    var items=cut.filter(function(p){return p.g===g}).map(function(p){return {id:p.id,name:p.name,L:Math.round(Math.max(p.L,p.W)),W:Math.round(Math.min(p.L,p.W))}})
-      .sort(function(a,b){return b.W-a.W||b.L-a.L});
-    var sheets=[];
-    var usableL=SHEET.L-2*SHEET.margin,usableW=SHEET.W-2*SHEET.margin;
-    items.forEach(function(it){
-      var done=false;
-      for(var s=0;s<sheets.length&&!done;s++){
-        var sh=sheets[s];
-        for(var r=0;r<sh.rows.length&&!done;r++){
-          var row=sh.rows[r];
-          if(row.x+it.L<=usableL&&it.W<=row.h){sh.placed.push({it:it,x:row.x,y:row.y});row.x+=it.L+SHEET.kerf;done=true}
-        }
-        if(!done&&sh.y+it.W<=usableW){
-          sh.rows.push({y:sh.y,h:it.W,x:it.L+SHEET.kerf});
-          sh.placed.push({it:it,x:0,y:sh.y});sh.y+=it.W+SHEET.kerf;done=true;
-        }
-      }
-      if(!done){
-        var ns={g:g,rows:[{y:0,h:it.W,x:it.L+SHEET.kerf}],placed:[{it:it,x:0,y:0}],y:it.W+SHEET.kerf};
-        sheets.push(ns);
-      }
+function polyArea(pts){if(!pts)return 0;var a=0;pts.forEach(function(q,i){var r=pts[(i+1)%pts.length];a+=q[0]*r[1]-r[0]*q[1]});return Math.abs(a)/2}
+function shapeOf(p){
+  var pts=null;
+  if(p.door){var d=p.door,w=d.xb-d.xa;pts=[[0,0],[w,0],[w,d.hB],[0,d.hA]]}
+  else if(p.poly&&!p.poly.edge)pts=p.poly.pts;
+  if(!pts)return null;
+  var xs=pts.map(function(q){return q[0]}),ys=pts.map(function(q){return q[1]}),x0=Math.min.apply(0,xs),y0=Math.min.apply(0,ys),sx=Math.max.apply(0,xs)-x0,sy=Math.max.apply(0,ys)-y0;
+  return pts.map(function(q){return sx>=sy?[q[0]-x0,q[1]-y0]:[q[1]-y0,q[0]-x0]});
+}
+function packSheets(items,g,rotate){
+  var UL=SHEET.L-2*SHEET.margin+SHEET.kerf,UW=SHEET.W-2*SHEET.margin+SHEET.kerf,K=SHEET.kerf,sheets=[];
+  var bestIn=function(sh,it){
+    var best=null;
+    [[it.L,it.W,false],[it.W,it.L,true]].forEach(function(o){
+      if(o[2]&&(!rotate||it.L===it.W))return;
+      var w=o[0]+K,h=o[1]+K;
+      sh.free.forEach(function(f){
+        if(w>f.w||h>f.h)return;
+        var a=Math.min(f.w-w,f.h-h),b=Math.max(f.w-w,f.h-h);
+        if(!best||a<best.a||(a===best.a&&b<best.b))best={a:a,b:b,x:f.x,y:f.y,w:w,h:h,rot:o[2]};
+      });
     });
-    sheets.forEach(function(s){s.used=s.placed.reduce(function(a,p){return a+p.it.L*p.it.W},0)/(SHEET.L*SHEET.W);out.push(s)});
+    return best;
+  };
+  var place=function(sh,it,b){
+    var free=[];
+    sh.free.forEach(function(f){
+      if(b.x>=f.x+f.w||b.x+b.w<=f.x||b.y>=f.y+f.h||b.y+b.h<=f.y){free.push(f);return}
+      if(b.x>f.x)free.push({x:f.x,y:f.y,w:b.x-f.x,h:f.h});
+      if(b.x+b.w<f.x+f.w)free.push({x:b.x+b.w,y:f.y,w:f.x+f.w-b.x-b.w,h:f.h});
+      if(b.y>f.y)free.push({x:f.x,y:f.y,w:f.w,h:b.y-f.y});
+      if(b.y+b.h<f.y+f.h)free.push({x:f.x,y:b.y+b.h,w:f.w,h:f.y+f.h-b.y-b.h});
+    });
+    sh.free=free.filter(function(f,i){return !free.some(function(o,j){return i!==j&&f.x>=o.x&&f.y>=o.y&&f.x+f.w<=o.x+o.w&&f.y+f.h<=o.y+o.h&&(j<i||f.x!==o.x||f.y!==o.y||f.w!==o.w||f.h!==o.h)})});
+    var q=it;
+    if(b.rot){q=Object.assign({},it,{L:it.W,W:it.L,tL:it.tW,tW:it.tL,rot:true});if(it.pts)q.pts=it.pts.map(function(p){return [it.W-p[1],p[0]]})}
+    sh.placed.push({it:q,x:b.x,y:b.y});
+  };
+  items.forEach(function(it){
+    for(var i=0;i<sheets.length;i++){var b=bestIn(sheets[i],it);if(b){place(sheets[i],it,b);return}}
+    var ns={g:g,placed:[],free:[{x:0,y:0,w:UL,h:UW}]};sheets.push(ns);
+    var b0=bestIn(ns,it);if(b0)place(ns,it,b0);else{ns.placed=[];sheets.pop();it.over=true}
   });
+  return sheets;
+}
+function nestAll(cut,rotate){
+  var out=[],over=[],UL=SHEET.L-2*SHEET.margin,UW=SHEET.W-2*SHEET.margin;
+  [18,6].forEach(function(g){
+    var items=[];
+    cut.forEach(function(p,ix){
+      if(p.g!==g)return;
+      var it={id:p.id,n:ix+1,name:p.name,L:Math.ceil(Math.max(p.L,p.W)-.001),W:Math.ceil(Math.min(p.L,p.W)-.001),tL:Math.round(Math.max(p.L,p.W)),tW:Math.round(Math.min(p.L,p.W)),pts:shapeOf(p)};it.net=polyArea(it.pts)||it.L*it.W;
+      if(it.W<=0||it.L>UL||it.W>UW)over.push(it);else items.push(it);
+    });
+    if(!items.length)return;
+    var orders=[function(a,b){return b.L*b.W-a.L*a.W},function(a,b){return b.L-a.L||b.W-a.W},function(a,b){return b.W-a.W||b.L-a.L},function(a,b){return (b.L+b.W)-(a.L+a.W)}],best=null;
+    orders.forEach(function(o){
+      var r=packSheets(items.slice().sort(o),g,rotate);
+      var last=r.length?r[r.length-1].placed.reduce(function(a,p){return a+p.it.L*p.it.W},0):0;
+      if(!best||r.length<best.r.length||(r.length===best.r.length&&last<best.last))best={r:r,last:last};
+    });
+    best.r.forEach(function(s){delete s.free;s.used=s.placed.reduce(function(a,p){return a+p.it.net},0)/(SHEET.L*SHEET.W);out.push(s)});
+  });
+  out.over=over;
   return out;
+}
+function asmStepList(c,sol){
+  var I=sol.info,st=[];
+  var dr=I.reduce(function(a,b){return a+b.drawers},0),sh=I.reduce(function(a,b){return a+b.shelves},0),rail=I.some(function(b){return b.rail}),door=I.some(function(b){return b.door});
+  st.push({k:'sep',t:'Separe as peças pelas etiquetas e confira com a lista do kit.'});
+  st.push({k:'base',t:c.base>0?'Monte a base nas laterais e instale os pés reguláveis e o rodapé.':'Monte a base nas duas laterais.'});
+  if(I.length>1)st.push({k:'div',t:'Encaixe '+(I.length-1)+(I.length===2?' divisória':' divisórias')+' na base.'});
+  st.push({k:'top',t:sol.sloped?'Fixe o tampo inclinado, começando pelo lado mais alto.':'Fixe o tampo e confira o esquadro.'});
+  st.push({k:'back',t:'Pregue o fundo de 6 mm na parte de trás.'});
+  if(sh)st.push({k:'shelf',t:'Coloque '+sh+(sh===1?' prateleira':' prateleiras')+' nos furos prontos.'});
+  if(rail)st.push({k:'rail',t:'Instale o cabideiro.'});
+  if(c.led)st.push({k:'led',t:'Passe a fita de LED e ligue a fonte.'});
+  if(dr)st.push({k:'drawer',t:'Instale as corrediças e monte '+dr+(dr===1?' gaveta':' gavetas')+'.'});
+  if(door)st.push({k:'door',t:'Coloque as portas e ajuste as dobradiças até alinhar.'});
+  st.push({k:'wall',t:sol.sloped?'Empurre o móvel até o vão e fixe na parede.':'Encoste o móvel na parede e fixe.'});
+  return st;
 }
 function rules(c,sol){
   var out=[],w=function(m){out.push({w:1,m:m})};
@@ -991,6 +1060,7 @@ function rules(c,sol){
   if(sol.bw<200)w('Vão de '+bwCm+' cm: estreito demais para porta ou gaveta. Reduza o número de vãos.');
   sol.info.forEach(function(b){
     var nm='Vão '+(b.i+1);
+    if(b.reqRail&&!b.rail)w(nm+': sem altura para o cabideiro.');
     if(b.rail&&c.D<520)w(nm+': o cabide pede pelo menos 52 cm de profundidade.');
     if(b.rail&&b.clear<900)w(nm+': só '+Math.round(b.clear/10)+' cm livres embaixo do cabideiro. Retire gavetas ou prateleiras.');
     if(b.reqDrawers>b.drawers)w(nm+': cabem só '+b.drawers+' gavetas nesta altura.');
@@ -999,7 +1069,10 @@ function rules(c,sol){
   });
   if(c.H-c.base>2200&&c.bays.some(function(b){return b.door}))out.push({m:'Porta acima de 2,20 m: o kit já prevê 5 dobradiças por folha.'});
   if(sol.sloped)out.push({m:'Tampo, fundo e portas saem com corte inclinado de '+cm(sol.hMin)+' a '+cm(c.H)+' cm.'});
-  out.push({m:'Todas as peças cabem na chapa de 2750 × 1850 mm.'});
+  var K0=kit(c,sol),bad=K0.nest.over.length;
+  if(bad){var nv=K0.nest.over[0];out.push({w:1,err:1,m:nv.W<=0?'Medidas inválidas: reduza o número de vãos ou aumente a largura.':nv.name+' de '+nv.L+' mm não cabe na chapa de 2750 × 1850 mm. Reduza a medida ou divida em módulos.'})}
+  else out.push({m:'Plano de corte conferido: '+K0.pieces+' peças em '+K0.nest.length+(K0.nest.length===1?' chapa':' chapas')+' de 2750 × 1850 mm.'});
+  if(sol.bw<200&&c.bays.some(function(b){return b.drawers>0}))out.push({w:1,m:'Gavetas retiradas: o vão é estreito demais.'});
   return out;
 }
 
@@ -1087,7 +1160,7 @@ function makeMesh(p,c){
   }else if(p.tilt){
     geo=new THREE.BoxGeometry(m(p.tilt.len),.018,m(p.tilt.d));
     mesh=new THREE.Mesh(geo,mat);mesh.rotation.z=p.tilt.a;
-    mesh.position.set(m(p.tilt.cx),m(p.tilt.cy),m(p.tilt.d/2));
+    mesh.position.set(m(p.tilt.cx),m(p.tilt.cy),m(p.tilt.zc));
   }else if(p.poly){
     var sh=new THREE.Shape();p.poly.pts.forEach(function(q,i){i?sh.lineTo(m(q[0]),m(q[1])):sh.moveTo(m(q[0]),m(q[1]))});sh.closePath();
     geo=new THREE.ExtrudeGeometry(sh,{depth:m(p.poly.z1-p.poly.z0),bevelEnabled:false});
@@ -1330,7 +1403,7 @@ function renderOutputs(){
   var body=$('cutBody');body.innerHTML='';
   K.rows.forEach(function(r){
     var tr=document.createElement('tr');tr.className='hot';
-    tr.innerHTML='<td>'+r.name+(r.note?' <span class="muted small">('+r.note+')</span>':'')+'</td><td class="n">'+r.qty+'</td><td class="n">'+r.L+' × '+r.W+'</td><td class="n">'+r.g+' mm</td>';
+    tr.innerHTML='<td>'+r.name+(r.note?' <span class="muted small">('+r.note+')</span>':'')+'<br><span class="muted small mono">'+r.tags.join(', ')+'</span></td><td class="n">'+r.qty+'</td><td class="n">'+r.L+' × '+r.W+'</td><td class="n">'+r.g+' mm</td>';
     tr.onmouseenter=function(){highlight(r.ids,true)};tr.onmouseleave=function(){highlight(r.ids,false)};
     body.appendChild(tr);
   });
@@ -1347,17 +1420,19 @@ function renderSheets(){
     var d=document.createElement('div');d.className='sheet';
     var svg='<svg viewBox="0 0 '+SHEET.L+' '+SHEET.W+'" role="img" aria-label="Chapa '+(i+1)+'">';
     s.placed.forEach(function(p){
-      var x=p.x+SHEET.margin,y=p.y+SHEET.margin,it=p.it;
-      svg+='<rect class="p'+(s.g===6?' thin':'')+'" data-id="'+it.id+'" x="'+x+'" y="'+y+'" width="'+it.L+'" height="'+it.W+'"/>';
-      if(it.W>=85&&it.L>=320){
-        var txt=it.name+' '+it.L+'×'+it.W,maxC=Math.floor(it.L/25);
-        if(txt.length>maxC)txt=it.L+'×'+it.W;
-        if(txt.length<=maxC)svg+='<text x="'+(x+18)+'" y="'+(y+Math.min(it.W/2+14,60))+'">'+txt+'</text>';
+      var x=p.x+SHEET.margin,y=p.y+SHEET.margin,it=p.it,tag='P'+String(it.n).padStart(2,'0');
+      svg+='<rect class="'+(it.pts?'off':'p'+(s.g===6?' thin':''))+'" data-id="'+it.id+'" x="'+x+'" y="'+y+'" width="'+it.L+'" height="'+it.W+'"/>';
+      if(it.pts)svg+='<polygon class="p'+(s.g===6?' thin':'')+'" data-id="'+it.id+'" points="'+it.pts.map(function(q){return (x+q[0]).toFixed(1)+','+(y+q[1]).toFixed(1)}).join(' ')+'"/>';
+      if(it.W>=85&&it.L>=150){
+        var txt=tag+' '+it.name+' '+it.tL+'×'+it.tW,maxC=Math.floor(it.L/25);
+        if(txt.length>maxC)txt=tag+' '+it.tL+'×'+it.tW;
+        if(txt.length>maxC)txt=tag;
+        svg+='<text x="'+(x+18)+'" y="'+(y+Math.min(it.W/2+14,60))+'">'+txt+'</text>';
       }
     });
     svg+='</svg>';
-    d.innerHTML='<div class="sheet-h"><b>Chapa '+(i+1)+': MDF '+s.g+' mm'+(s.g===18?', '+f:'')+'</b><span class="muted mono">'+s.placed.length+' peças · '+Math.round(s.used*100)+'% usada</span></div>'+svg;
-    d.querySelectorAll('rect.p').forEach(function(r){
+    d.innerHTML='<div class="sheet-h"><b>Chapa '+(i+1)+': MDF '+s.g+' mm'+(s.g===18?', '+f:'')+'</b><span class="muted mono">'+s.placed.length+' peças · '+Math.round(s.used*100)+'% da chapa em peças'+(s.g===18&&['carvalho','nogueira'].indexOf(cfg.finish)>=0?' · veio no comprimento':'')+'</span></div>'+svg;
+    d.querySelectorAll('.p').forEach(function(r){
       var id=+r.getAttribute('data-id');
       r.addEventListener('mouseenter',function(){highlight([id],true)});
       r.addEventListener('mouseleave',function(){highlight([id],false)});
@@ -1370,28 +1445,19 @@ function kitCode(){
   return 'SB-'+pre+'-'+cm(cfg.W)+'-'+cm(cfg.H)+'-'+cm(cfg.D);
 }
 var lastQr='';
+function presetOf(c){var key=function(x){return JSON.stringify([x.type,x.W,x.H,x.D,x.base,x.hMin,x.bays])},k=key(c),m=PRESETS.filter(function(p){return key(p.cfg)===k})[0];return m||null}
+function videoFor(c){var m=presetOf(c);if(m)return m.code.toLowerCase();var dr=c.bays.some(function(b){return b.drawers>0});return {guarda:c.W<1500?'sb-gr-120':'sb-gr-180',armario:dr?'sb-ae-090':'sb-lv-090',estante:'sb-es-180',rack:'sb-rk-180',escada:'sb-ee-240',nicho:'sb-ni-080'}[c.type]}
 function renderAsm(){
-  var st=[],I=sol.info;
-  var dr=I.reduce(function(a,b){return a+b.drawers},0),sh=I.reduce(function(a,b){return a+b.shelves},0),rail=I.some(function(b){return b.rail}),door=I.some(function(b){return b.door});
-  st.push('Separe as peças pelas etiquetas e confira com a lista do kit.');
-  st.push(cfg.base>0?'Monte a base nas laterais e instale os pés reguláveis e o rodapé.':'Monte a base nas duas laterais.');
-  if(I.length>1)st.push('Encaixe '+(I.length-1)+(I.length===2?' divisória':' divisórias')+' na base.');
-  st.push(sol.sloped?'Fixe o tampo inclinado, começando pelo lado mais alto.':'Fixe o tampo e confira o esquadro.');
-  st.push('Pregue o fundo de 6 mm com o móvel deitado.');
-  if(sh)st.push('Coloque '+sh+(sh===1?' prateleira':' prateleiras')+' nos furos prontos.');
-  if(rail)st.push('Instale o cabideiro.');
-  if(dr)st.push('Monte '+dr+(dr===1?' gaveta':' gavetas')+' e instale as corrediças.');
-  if(door)st.push('Coloque as portas e ajuste as dobradiças até alinhar.');
-  if(cfg.led)st.push('Passe a fita de LED e ligue a fonte.');
-  st.push('Fixe o móvel na parede.');
+  var st=asmStepList(cfg,sol).map(function(x){return x.t});
+  var av=$('asmVid');if(av){var vc=videoFor(cfg);if(av.dataset.code!==vc){av.dataset.code=vc;av.removeAttribute('src');av.poster='assets/vid/'+vc+'.jpg';av.load();if(!$('p-montar').hidden)av.src='assets/vid/'+vc+'.mp4'}var an=$('asmVidNote'),pm=presetOf(cfg),ex=PRESETS.filter(function(p){return p.code.toLowerCase()===vc})[0];if(an)an.textContent=pm?'Vídeo deste móvel, com as mesmas peças da lista.':'Vídeo de exemplo: '+ex.name+'. Seu projeto tem outras medidas; o passo a passo ao lado é o do seu móvel.'}
   $('asmSteps').innerHTML=st.map(function(s){return '<li><span>'+s+'</span></li>'}).join('');
   $('lblName').textContent=TYPES[cfg.type].label;
   var code=kitCode();
   $('lblCode').textContent=code;
   $('lblPieces').textContent=K.pieces+' peças · MDF 18 mm';
-  if(window.QRCode&&lastQr!==code){
-    lastQr=code;var q=$('qr');q.innerHTML='';
-    try{new QRCode(q,{text:'Sambla, video de montagem do modulo '+code+' (prototipo)',width:208,height:208,colorDark:'#14212B',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M})}catch(e){}
+  if(window.QRCode&&lastQr!==videoFor(cfg)){
+    lastQr=videoFor(cfg);var q=$('qr');q.innerHTML='';
+    try{new QRCode(q,{text:new URL('assets/vid/'+videoFor(cfg)+'.mp4',location.href).href,width:208,height:208,colorDark:'#14212B',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M})}catch(e){}
   }
 }
 var FRETE={0:2.2,1:1.7,2:2.7,3:2.9,4:3.8,5:4.3,6:4.8,7:3.9,8:2.8,9:3.1};
@@ -1534,8 +1600,8 @@ function renderCards(){
   PRESETS.filter(function(p){return roomFilter==='Todos'||p.room===roomFilter}).forEach(function(p){
     var s=solve(p.cfg),k=kit(p.cfg,s);
     var d=document.createElement('article');d.className='card';
-    var pic=document.createElement('div');pic.className='pic';
-    if(thumbs[p.code]){var im=document.createElement('img');im.src=thumbs[p.code];im.alt=p.name;pic.appendChild(im)}
+    var pic=document.createElement('div');pic.className='pic';pic.tabIndex=0;pic.setAttribute('role','button');pic.setAttribute('aria-label','Ver '+p.name+' se montando');
+    if(thumbs[p.code]){var im=document.createElement('img');im.loading='lazy';im.src=thumbs[p.code];im.alt=p.name;pic.appendChild(im)}
     else{pic.classList.add('elev');pic.innerHTML=elevation(p.cfg,s)}
     d.appendChild(pic);
     var code=document.createElement('span');code.className='code';code.textContent=p.code+' · '+p.room;d.appendChild(code);
@@ -1610,15 +1676,21 @@ $('led').onchange=function(e){cfg.led=e.target.checked;refresh(false)};
 $('tabs').addEventListener('click',function(e){var b=e.target.closest('button');if(b)setTab(b.dataset.t)});
 $('goOrder').onclick=function(){setTab('pedido');$('tabs').scrollIntoView({block:'start'})};
 document.querySelectorAll('input[name=ship]').forEach(function(r){r.addEventListener('change',renderTotal)});
+$('cep').addEventListener('input',function(){orderSync()});
+document.querySelectorAll('input[name=ship]').forEach(function(r){r.addEventListener('change',function(){orderSync()})});
 $('cep').addEventListener('input',function(e){
   var d=e.target.value.replace(/\D/g,'').slice(0,8);e.target.value=d.length>5?d.slice(0,5)+'-'+d.slice(5):d;renderTotal();
 });
-$('measuresOk').onchange=function(e){$('orderBtn').disabled=!e.target.checked};
+function orderReady(){var s=shipping();return $('measuresOk').checked&&!K.nest.over.length&&s.v!==null}
+function orderSync(){$('orderBtn').disabled=!orderReady();$('opOut').innerHTML=''}
+$('measuresOk').onchange=orderSync;
+$('installer').addEventListener('change',function(){$('opOut').innerHTML=''});
 $('orderForm').addEventListener('submit',function(e){
   e.preventDefault();
+  if(!orderReady())return;
   var box=$('opOut'),s=shipping();
   var cut=K.pieces,sheets=K.nest.length;
-  box.innerHTML='<div class="op"><b class="mono">Ordem de produção '+kitCode()+'</b><br>'+TYPES[cfg.type].label+', '+cm(cfg.W)+' × '+cm(cfg.H)+' × '+cm(cfg.D)+' cm.<br>'+cut+' peças em '+sheets+(sheets===1?' chapa':' chapas')+', '+K.hw.length+' itens de ferragem e etiqueta QR em cada módulo.<br>Total de exemplo: <b>'+money(K.cost.total+(s.v||0))+'</b>.<br><span class="muted">Neste protótipo o pedido não é enviado à fábrica.</span></div>';
+  box.innerHTML='<div class="op"><b class="mono">Ordem de produção '+kitCode()+'</b><br>'+TYPES[cfg.type].label+', '+cm(cfg.W)+' × '+cm(cfg.H)+' × '+cm(cfg.D)+' cm.<br>'+cut+' peças em '+sheets+(sheets===1?' chapa':' chapas')+', '+K.hw.length+' itens de ferragem e etiqueta QR em cada módulo.<br>'+($('installer').checked?'Com indicação de montador parceiro, combinada à parte.<br>':'')+'Total de exemplo, com frete: <b>'+money(K.cost.total+s.v)+'</b>.<br><span class="muted">Simulação: o pedido não é enviado à fábrica.</span></div>';
 });
 ['visit','b2b'].forEach(function(k){
   $(k+'Form').addEventListener('submit',function(e){e.preventDefault();$(k+'Ok').hidden=false});
@@ -1691,39 +1763,55 @@ if(!reduced){
   tiles.forEach(function(t){
     var code=t.dataset.code,v=t.querySelector('video'),bar=t.querySelector('.asm-bar');
     var pr=sb&&sb.PRESETS.filter(function(p){return p.code.toLowerCase()===code})[0];
-    if(pr){var s=sb.solve(pr.cfg),k=sb.kit(pr.cfg,s);t.querySelector('h3').textContent=pr.name;t.querySelector('p').textContent=k.pieces+' peças · '+k.nest.length+(k.nest.length>1?' chapas':' chapa');v.setAttribute('aria-label','Animação: '+pr.name+' se montando peça por peça');
+    if(pr){var s=sb.solve(pr.cfg),k=sb.kit(pr.cfg,s);t.querySelector('h3').textContent=pr.name;t.querySelector('.asm-count').textContent=k.pieces+' peças · '+k.nest.length+(k.nest.length>1?' chapas':' chapa');v.setAttribute('aria-label','Animação: '+pr.name+' se montando peça por peça');
       t.querySelector('button').addEventListener('click',function(){sb.open(pr.code)})}
     v.muted=true;
-    v.addEventListener('timeupdate',function(){if(v.duration)bar.style.transform='scaleX('+(v.currentTime/v.duration).toFixed(3)+')'});
+    var steps=(window.__asmSteps||{})[code]||[],now=t.querySelector('.asm-now'),cur=-1;
+    var showStep=function(){var i=0;for(var n=0;n<steps.length;n++)if(v.currentTime>=steps[n].t)i=n;if(i!==cur&&steps[i]){cur=i;now.textContent='Passo '+(i+1)+' de '+steps.length+': '+steps[i].text}};
+    showStep();
+    v.addEventListener('timeupdate',function(){showStep();if(v.duration)bar.style.transform='scaleX('+(v.currentTime/v.duration).toFixed(3)+')'});
   });
-  if(reduced||!('IntersectionObserver' in window))return;
+  if(reduced||!('IntersectionObserver' in window)){tiles.forEach(function(t){var v=t.querySelector('video');v.src='assets/vid/'+t.dataset.code+'.mp4';v.controls=true});return}
   var vo=new IntersectionObserver(function(es){es.forEach(function(en){var v=en.target.querySelector('video');
-    if(en.isIntersecting){if(!v.getAttribute('src'))v.src='assets/vid/'+en.target.dataset.code+'.mp4';var p=v.play();if(p&&p.catch)p.catch(function(){})}else v.pause()})},{threshold:.45});
+    if(en.isIntersecting){if(!v.getAttribute('src'))v.src='assets/vid/'+en.target.dataset.code+'.mp4';var p=v.play();if(p&&p.catch)p.catch(function(){v.controls=true})}else v.pause()})},{threshold:.45});
   tiles.forEach(function(t){vo.observe(t)});
 })();
 
-/* catálogo: o móvel se monta ao passar o mouse ou tocar na imagem */
+/* catálogo: o móvel se monta ao passar o mouse, tocar ou usar o teclado, um por vez */
 (function(){
-  var box=$('cards');if(!box||reduced)return;
+  var box=$('cards');if(!box)return;
+  var active=null;
   var codeOf=function(c){var im=c.querySelector('.pic img'),m=im&&/c-(sb-[a-z0-9-]+)\.webp/.exec(im.getAttribute('src'));return m?m[1]:null};
-  var on=function(c){var code=codeOf(c);if(!code||c.querySelector('.pic-v'))return;var v=document.createElement('video');v.className='pic-v';v.muted=true;v.loop=true;v.playsInline=true;v.setAttribute('playsinline','');v.src='assets/vid/'+code+'.mp4';c.querySelector('.pic').appendChild(v);var p=v.play();if(p&&p.catch)p.catch(function(){})};
-  var off=function(c){var v=c.querySelector('.pic-v');if(v){v.pause();v.remove()}};
-  box.addEventListener('pointerover',function(e){if(e.pointerType==='touch')return;var c=e.target.closest('.card');if(c)on(c)});
-  box.addEventListener('pointerout',function(e){if(e.pointerType==='touch')return;var c=e.target.closest('.card');if(c&&!c.contains(e.relatedTarget))off(c)});
-  box.addEventListener('click',function(e){var pic=e.target.closest('.pic');if(!pic)return;var c=pic.closest('.card');if(c.querySelector('.pic-v'))off(c);else on(c)});
+  var off=function(c){var v=c&&c.querySelector('.pic-v');if(v){v.pause();v.remove()}if(active===c)active=null};
+  var on=function(c){var code=codeOf(c);if(!code||c.querySelector('.pic-v'))return;if(active)off(active);active=c;var v=document.createElement('video');v.className='pic-v';v.muted=true;v.loop=true;v.playsInline=true;v.setAttribute('playsinline','');v.src='assets/vid/'+code+'.mp4';c.querySelector('.pic').appendChild(v);if(gone)gone.observe(c);var p=v.play();if(p&&p.catch)p.catch(function(){v.controls=true})};
+  var gone='IntersectionObserver' in window?new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting){off(e.target);gone.unobserve(e.target)}})},{threshold:.1}):null;
+  if(!reduced){
+    box.addEventListener('pointerover',function(e){if(e.pointerType==='touch')return;var c=e.target.closest('.card');if(c)on(c)});
+    box.addEventListener('pointerout',function(e){if(e.pointerType==='touch')return;var c=e.target.closest('.card');if(c&&!c.contains(e.relatedTarget))off(c)});
+  }
+  box.addEventListener('click',function(e){var pic=e.target.closest('.pic');if(!pic)return;var c=pic.closest('.card');if(c.querySelector('.pic-v')&&e.detail!==-1){off(c)}else on(c)});
+  box.addEventListener('keydown',function(e){if((e.key==='Enter'||e.key===' ')&&e.target.classList&&e.target.classList.contains('pic')){e.preventDefault();var c=e.target.closest('.card');if(c.querySelector('.pic-v'))off(c);else on(c)}});
 })();
+
+/* vídeo de montagem dentro do estúdio */
+(function(){
+  var v=$('asmVid'),tab=$('tab-montar');if(!v||!tab)return;
+  tab.addEventListener('click',function(){if(v.dataset.code&&!v.getAttribute('src'))v.src='assets/vid/'+v.dataset.code+'.mp4'});
+})();
+
+/* foto: também por teclado */
+(function(){var l=document.querySelector('label[for=photoInput]');if(!l)return;l.tabIndex=0;l.setAttribute('role','button');l.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();$('photoInput').click()}})})();
 
 /* etapas no ambiente e filme de detalhes */
 (function(){
-  var box=$('amb'),v=box.querySelector('video'),st=box.querySelectorAll('.amb-st li'),bar=box.querySelector('.asm-bar'),tabs=document.querySelectorAll('#ambTabs button'),T=[2.15,3.65,5.35],room='quarto',seen=false;
+  var box=$('amb'),v=box.querySelector('video'),st=box.querySelectorAll('.amb-st li'),bar=box.querySelector('.asm-bar'),tabs=document.querySelectorAll('#ambTabs button'),T=[2.15,3.65,5.35],room='quarto',seen=false,r=$('reel'),rv=r.querySelector('video');
   var mark=function(){var t=v.currentTime,k=t<T[0]?0:t<T[1]?1:t<T[2]?2:3;st.forEach(function(li,i){li.classList.toggle('on',i===k)});if(v.duration)bar.style.transform='scaleX('+(t/v.duration).toFixed(3)+')'};
-  var go=function(){if(!v.getAttribute('src'))v.src='assets/vid/amb-'+room+'.mp4';var p=v.play();if(p&&p.catch)p.catch(function(){})};
-  v.muted=true;v.addEventListener('timeupdate',mark);
-  tabs.forEach(function(b){b.addEventListener('click',function(){room=b.dataset.a;tabs.forEach(function(x){x.setAttribute('aria-pressed',x===b)});v.poster='assets/vid/amb-'+room+'.jpg';v.src='assets/vid/amb-'+room+'.mp4';st.forEach(function(li,i){li.classList.toggle('on',i===0)});if(!reduced&&seen)go()})});
-  if(reduced||!('IntersectionObserver' in window)){v.controls=true;return}
+  var go=function(){if(!v.getAttribute('src'))v.src='assets/vid/amb-'+room+'.mp4';var p=v.play();if(p&&p.catch)p.catch(function(){v.controls=true})};
+  v.muted=true;rv.muted=true;v.addEventListener('timeupdate',mark);
+  tabs.forEach(function(b){b.addEventListener('click',function(){room=b.dataset.a;tabs.forEach(function(x){x.setAttribute('aria-pressed',x===b)});v.poster='assets/vid/amb-'+room+'.jpg';v.src='assets/vid/amb-'+room+'.mp4';st.forEach(function(li,i){li.classList.toggle('on',i===0)});bar.style.transform='scaleX(0)';if(!reduced&&seen)go()})});
+  if(reduced||!('IntersectionObserver' in window)){v.src='assets/vid/amb-'+room+'.mp4';v.controls=true;rv.src='assets/vid/detalhes.mp4';rv.controls=true;return}
   new IntersectionObserver(function(e){seen=e[0].isIntersecting;if(seen)go();else v.pause()},{threshold:.4}).observe(box);
-  var r=$('reel'),rv=r.querySelector('video');rv.muted=true;
-  new IntersectionObserver(function(e){if(e[0].isIntersecting){if(!rv.getAttribute('src'))rv.src='assets/vid/detalhes.mp4';var p=rv.play();if(p&&p.catch)p.catch(function(){})}else rv.pause()},{threshold:.4}).observe(r);
+  new IntersectionObserver(function(e){if(e[0].isIntersecting){if(!rv.getAttribute('src'))rv.src='assets/vid/detalhes.mp4';var p=rv.play();if(p&&p.catch)p.catch(function(){rv.controls=true})}else rv.pause()},{threshold:.4}).observe(r);
 })();
 
 /* antes e depois */
@@ -1736,7 +1824,7 @@ if(!reduced&&'IntersectionObserver' in window){
 }
 
 /* QR de exemplo e plano de corte animado, com o motor real do estúdio */
-if(window.QRCode){try{new QRCode($('qr2'),{text:'Sambla, video de montagem do modulo SB-EE-240 (prototipo)',width:208,height:208,colorDark:'#07090B',colorLight:'#F4F6F8',correctLevel:QRCode.CorrectLevel.M})}catch(e){}}
+if(window.QRCode){try{new QRCode($('qr2'),{text:new URL('assets/vid/sb-ee-240.mp4',location.href).href,width:208,height:208,colorDark:'#07090B',colorLight:'#F4F6F8',correctLevel:QRCode.CorrectLevel.M})}catch(e){}}
 var SB=window.__sb;
 if(SB){
   var c=SB.fromType('escada');c.finish='carvalho';c.handle='cava';c.bays=[SB.B(1,0,0,1),SB.B(1,0,0,1),SB.B(2,0,0,0),SB.B(0,3,0,0)];c.W=2600;c.H=2300;c.hMin=480;c.D=600;
@@ -1745,7 +1833,9 @@ if(SB){
   $('tBars').innerHTML=k.nest.map(function(s,i){var u=Math.round(s.used*100);return '<div class="bar"><span>Chapa '+(i+1)+'</span><i><u style="width:'+u+'%"></u></i><em>'+u+'%</em></div>'}).join('');
   var SW=2750,SH=1850,G=110,cols=3,rows=Math.ceil(k.nest.length/cols),svg='<svg viewBox="0 0 '+(cols*SW+(cols-1)*G)+' '+(rows*SH+(rows-1)*G)+'" role="img" aria-label="Plano de corte">',n=0;
   k.nest.forEach(function(s,i){var ox=(i%cols)*(SW+G),oy=Math.floor(i/cols)*(SH+G);svg+='<rect class="sh" x="'+ox+'" y="'+oy+'" width="'+SW+'" height="'+SH+'" rx="14"/>';
-    s.placed.forEach(function(p){svg+='<rect class="pc" style="--d:'+(n*.07).toFixed(2)+'s" x="'+(ox+p.x+10)+'" y="'+(oy+p.y+10)+'" width="'+p.it.L+'" height="'+p.it.W+'" rx="6"/>';n++})});
+    s.placed.forEach(function(p){var x=ox+p.x+10,y=oy+p.y+10,d='style="--d:'+(n*.07).toFixed(2)+'s"';
+      if(p.it.pts){svg+='<rect class="off" x="'+x+'" y="'+y+'" width="'+p.it.L+'" height="'+p.it.W+'"/><polygon class="pc" '+d+' points="'+p.it.pts.map(function(q){return (x+q[0]).toFixed(1)+','+(y+q[1]).toFixed(1)}).join(' ')+'"/>'}
+      else svg+='<rect class="pc" '+d+' x="'+x+'" y="'+y+'" width="'+p.it.L+'" height="'+p.it.W+'" rx="6"/>';n++})});
   svg+='</svg>';var pt=$('planTile');pt.innerHTML=svg;
   if('IntersectionObserver' in window){var pi=new IntersectionObserver(function(e){if(e[0].isIntersecting){pi.disconnect();pt.classList.add('go')}},{threshold:.25});pi.observe(pt)}else pt.classList.add('go');
 }
@@ -1756,17 +1846,18 @@ var small=window.innerWidth<900||(navigator.connection&&navigator.connection.sav
 var pre=small?'m':'h';
 var frames=new Array(N);
 var url=function(i){return 'assets/seq/'+pre+String(i).padStart(3,'0')+'.webp'};
-var loadOne=function(i){return new Promise(function(res){if(frames[i])return res();var im=new Image();im.decoding='async';im.onload=function(){frames[i]=im;res();need=true};im.onerror=function(){res()};im.src=url(i)})};
+var pend={};var loadOne=function(i){return new Promise(function(res){if(frames[i]||pend[i])return res();pend[i]=1;var im=new Image();im.decoding='async';im.onload=function(){frames[i]=im;delete pend[i];res();need=true};im.onerror=function(){delete pend[i];res()};im.src=url(i)})};
 var order=[];[16,8,4,2,1].forEach(function(st){for(var i=0;i<N;i+=st)if(order.indexOf(i)<0)order.push(i)});
 if(order.indexOf(N-1)<0)order.unshift(N-1);
-var pump=function(){var w=6;var nx=function(){if(!order.length)return;return loadOne(order.shift()).then(nx)};for(var i=0;i<w;i++)nx()};
+var pump=function(){if(small){around(0);return}var w=6;var nx=function(){if(!order.length)return;return loadOne(order.shift()).then(nx)};for(var i=0;i<w;i++)nx()};
+var aroundAt=-99,around=function(i){if(Math.abs(i-aroundAt)<4)return;aroundAt=i;for(var d=0;d<=36;d+=2){if(i+d<N)loadOne((i+d)&~1);if(i-d>=0)loadOne((i-d)&~1)}for(var k=2;k<N-1;k+=2){if(frames[k]&&Math.abs(k-i)>70)frames[k]=null}loadOne(N-1)};
 var need=true,target=0,cur=0,last=-1;
 var size=function(){var d=Math.min(window.devicePixelRatio||1,small?1.5:1.5);cv.width=Math.round(cv.clientWidth*d);cv.height=Math.round(cv.clientHeight*d);last=-1;need=true};
 window.addEventListener('resize',size);size();
 var near=function(i){for(var d=0;d<N;d++){if(frames[i-d])return frames[i-d];if(frames[i+d])return frames[i+d]}return null};
 var draw=function(t){
   var i=Math.round(t*(N-1)),im=near(i);if(!im)return;
-  var key=i+'|'+Math.round(t*400);if(key===last)return;last=key;
+  var key=i+'|'+Math.round(t*400)+'|'+im.src;if(key===last)return;last=key;
   var iw=im.naturalWidth,ih=im.naturalHeight,cw=cv.width,ch=cv.height,sc=Math.max(cw/iw,ch/ih),sf=Math.min(cw/iw,ch/ih),kf=clamp((t-.5)/.1,0,1)*(1-clamp((t-.76)/.08,0,1)),kk=kf*kf*(3-2*kf),s=sc+(sf-sc)*kk,dw=iw*s,dh=ih*s;
   ctx.fillStyle='#07090B';ctx.fillRect(0,0,cw,ch);
   /* foco: em tela estreita acompanha o móvel, à direita no início, ao centro no resto */
@@ -1792,11 +1883,13 @@ var loop=function(){
   target=clamp(-r.top/span,0,1);
   cur=reduced?target:cur+(target-cur)*.14;
   if(Math.abs(target-cur)<.0002)cur=target;
-  if(r.bottom>-50&&r.top<innerHeight+50){draw(cur);ui(cur)}
-  requestAnimationFrame(loop);
+  if(r.bottom>-50&&r.top<innerHeight+50){if(small)around(Math.round(cur*(N-1)));draw(cur);ui(cur)}
+  if(heroOn)requestAnimationFrame(loop);else running=false;
 };
+var heroOn=true,running=false,startLoop=function(){if(!running){running=true;requestAnimationFrame(loop)}};
+if('IntersectionObserver' in window)new IntersectionObserver(function(e){heroOn=e[0].isIntersecting;if(heroOn)startLoop()},{rootMargin:'120px 0px'}).observe(sec);
 ui(0);
-loadOne(0).then(function(){pump();requestAnimationFrame(loop)});
+loadOne(0).then(function(){pump();startLoop()});
 })();
 </script>
 </body>
